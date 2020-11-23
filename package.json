@@ -1,0 +1,23 @@
+{
+  "name": "dubbo.ts-example",
+  "private": true,
+  "scripts": {
+    "server": "ts-node src/server.ts",
+    "client": "ts-node src/client.ts",
+    "server:registry": "ts-node src/server.registry.ts",
+    "client:registry": "ts-node src/client.registry.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.9",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "@dubbo.ts/application": "^1.0.3",
+    "@dubbo.ts/consumer": "^1.0.5",
+    "@dubbo.ts/provider": "^1.0.8",
+    "@dubbo.ts/zookeeper": "^1.0.4",
+    "@types/js-to-java": "^2.4.1",
+    "js-to-java": "^2.6.1"
+  }
+}
