@@ -7,11 +7,13 @@ export function createRegistry() {
     host: '127.0.0.1'
   });
 
+  app.useRegistry(registry);
+
   const keys = Object.keys(interfaceExports);
   const name = keys[0];
   const methods = Object.keys(interfaceExports[name as keyof typeof interfaceExports]);
   
-  registry.addService(name, methods);
+  registry.addProviderService(name, methods);
 
   return registry;
 }

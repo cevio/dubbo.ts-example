@@ -5,11 +5,11 @@ import { app } from './application';
 import { interfaceExports } from './code';
 import { int } from 'js-to-java';
 const consumer = new Consumer(app);
-consumer.launch();
-
-consumer.on('connect', () => console.log(' - server connected'));
-consumer.on('disconnect', () => console.log(' - server disconnected'));
-consumer.on('error', (e) => console.error(e));
+app.useConsumer(consumer);
+consumer.on('connect', async () => console.log(' - server connected'));
+consumer.on('disconnect', async () => console.log(' - server disconnected'));
+consumer.on('error', async (e) => console.error(e));
+consumer.on('reconnect', async (n, d) => console.log('reconnect to server:', n, 'time', d, 'ms delay'));
 
 createServer((req, res) => {
   const url = parse(req.url, true);
@@ -32,3 +32,5 @@ createServer((req, res) => {
       res.end(e.message);
     })
 }).listen(8000, () => console.log(' + Client start HTTP server at port', 8000));
+
+app.start();

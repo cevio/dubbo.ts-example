@@ -3,14 +3,13 @@ import { app } from './application';
 import { interfaceExports } from './code';
 
 const provider = new Provider(app);
+app.useProvider(provider);
 
-provider.on('connect', () => console.log(' - client connected'));
-provider.on('disconnect', () => console.log(' - client disconnect'));
-provider.on('listening', () => console.log(' - Tcp connection is listening'));
-provider.on('error', (e) => console.error(e));
-provider.on('close', () => console.log('\n - Tcp closed'));
+provider.on('connect', async () => console.log(' - client connected'));
+provider.on('disconnect', async () => console.log(' - client disconnect'));
+provider.on('error', async (e) => console.error(e));
 
-provider.on('data', (reply: TProviderReply) => {
+provider.on('data', async (reply: TProviderReply) => {
   reply(async (schema, status) => {
     const isTwoWay = schema.isTwoWay;
     const name = schema.interface;
@@ -35,6 +34,4 @@ provider.on('data', (reply: TProviderReply) => {
   })
 });
 
-provider.listen().then(tcp => {
-  console.log(' - Tcp server on', 'port:', app.port, 'status:', tcp.listening);
-});
+app.start();

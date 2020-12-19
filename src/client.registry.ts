@@ -5,14 +5,14 @@ import { app } from './application';
 import { interfaceExports } from './code';
 import { int } from 'js-to-java';
 import { createRegistry } from './registry';
-createRegistry();
+const registry = createRegistry();
 const consumer = new Consumer(app);
-consumer.launch();
+app.useConsumer(consumer);
 
-consumer.on('connect', () => console.log(' - server connected'));
-consumer.on('disconnect', () => console.log(' - server disconnected'));
-consumer.on('error', (e) => console.error(e));
-consumer.on('channels', result => console.log(' - get channels:', result.map((res: any) => res.host)));
+consumer.on('connect', async () => console.log(' - server connected'));
+consumer.on('disconnect', async () => console.log(' - server disconnected'));
+consumer.on('error', async (e) => console.error(e));
+consumer.on('reconnect', async (n, d) => console.log('reconnect to server:', n, 'time', d, 'ms delay'));
 
 createServer((req, res) => {
   const url = parse(req.url, true);
@@ -25,7 +25,7 @@ createServer((req, res) => {
   const methods = Object.keys(interfaceExports[name as keyof typeof interfaceExports]);
   const method = methods[0];
 
-  consumer.invoke(name).then(client => {
+  registry.invoke(name).then(client => {
     return client.execute(name, method, [
       int(Number(url.query.a)), 
       int(Number(url.query.b))
@@ -38,3 +38,5 @@ createServer((req, res) => {
     res.end(e.message);
   });
 }).listen(8000, () => console.log(' + Client start HTTP server at port', 8000));
+
+app.start();

@@ -13,10 +13,10 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
-    "@dubbo.ts/application": "^1.0.4",
-    "@dubbo.ts/consumer": "^1.0.12",
-    "@dubbo.ts/provider": "^1.0.15",
-    "@dubbo.ts/zookeeper": "^1.0.11",
+    "@dubbo.ts/application": "^2.0.3",
+    "@dubbo.ts/consumer": "^2.0.3",
+    "@dubbo.ts/provider": "^2.0.3",
+    "@dubbo.ts/zookeeper": "^2.0.3",
     "@types/js-to-java": "^2.4.1",
     "js-to-java": "^2.6.1"
   }
