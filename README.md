@@ -8,6 +8,8 @@ $ cd dubbo.ts-example
 $ npm i
 ```
 
+![performance](https://cdn.aidigger.com/Bumblebee/2020-12-19/ececbd1ca1392e9bc5beceb8ab01247d.png)
+
 ## 直连模式
 
 ```bash
